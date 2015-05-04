@@ -1,0 +1,28 @@
+@CHARSET "UTF-8";
+
+
+.title1 {
+	font-size: 2em;
+	font-weight: bold;
+}
+
+.item1 {
+	font-size: 1.5em;
+}
+
+.fieldLabel {
+	font-size: 1em;
+	font-weight: bolder;
+}
+
+.fieldValue {
+	font-size: 1em;
+}
+
+.defaultDataTable{
+	font-size: 0.8em;
+}
+
+.defaultButton {
+	font-size: 1em;
+}

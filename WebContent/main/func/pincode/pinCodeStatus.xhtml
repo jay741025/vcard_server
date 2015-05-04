@@ -1,0 +1,84 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core">
+<h:head>
+	<title>PIN Code Status</title>
+	<h:outputStylesheet name="common.css" library="css" />
+</h:head>
+<h:body>
+	<div class="title1">PIN Code Status</div>
+	<hr />
+
+	<h:form>
+		<h:panelGrid columns="2">
+
+			<p:outputLabel value="Account Code" for="accCode" styleClass="fieldLabel" />
+			<p:selectOneMenu id="accCode" value="#{pinCodeBean.accCode}" styleClass="fieldValue" 
+				required="true" requiredMessage="Account Code is empty.">
+				<f:selectItem itemLabel="Select One" itemValue="" />
+				<f:selectItem itemLabel="000001" itemValue="000001" />
+				<f:selectItem itemLabel="000002" itemValue="000002" />
+				<f:selectItem itemLabel="000003" itemValue="000003" />
+			</p:selectOneMenu>
+			
+
+			<p:outputLabel value="Card No" for="cardNo" styleClass="fieldLabel" />
+			<p:inputText id="cardNo" value="#{pinCodeBean.cardNo}" styleClass="fieldValue" />
+			
+			<p:outputLabel value="Amount" for="amount" styleClass="fieldLabel" />
+			<p:inputText id="amount" value="#{pinCodeBean.amount}" styleClass="fieldValue">
+				<f:validateLongRange minimum="0" maximum="9999" />
+			</p:inputText>
+			
+			<p:outputLabel value="Account Code" for="status" styleClass="fieldLabel" />
+			<p:selectOneMenu id="status" value="#{pinCodeBean.status}" styleClass="fieldValue">
+				<f:selectItem itemLabel="ALL" itemValue="" />
+				<f:selectItem itemLabel="ACTIVED" itemValue="50" />
+				<f:selectItem itemLabel="ACTIVED (reserved)" itemValue="52" />
+				<f:selectItem itemLabel="ALREADY USED" itemValue="90" />
+			</p:selectOneMenu>
+			
+		</h:panelGrid>
+		
+		<p:commandButton value="Submit" styleClass="defaultButton"
+			actionListener="#{pinCodeBean.queryPinCodeList}" 
+			update="msg resultList" /> 
+		<p:messages id="msg" />
+		<br/>
+		<p:dataTable id="resultList"
+			value="#{pinCodeBean.cardList}" var="cardInfo"
+			rows="15" paginator="true"
+			paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}" 
+			styleClass="defaultDataTable">
+			
+			<p:column headerText="Account Code">
+	            <h:outputText value="#{cardInfo.accCode}" />
+	        </p:column>
+			<p:column headerText="Seq No">
+	            <h:outputText value="#{cardInfo.seqNo}" />
+	        </p:column>
+			<p:column headerText="Card No (外部)">
+	            <h:outputText value="#{cardInfo.cardNoOut}" />
+	        </p:column>
+			<p:column headerText="Amount">
+	            <h:outputText value="#{cardInfo.amount}" />
+	        </p:column>
+			<p:column headerText="Status">
+	            <h:outputText value="#{cardInfo.status}" />
+	        </p:column>
+			<p:column headerText="Card No (內部)">
+	            <h:outputText value="#{cardInfo.cardNoIn}" />
+	        </p:column>
+			<p:column headerText="Card No (原始)">
+	            <h:outputText value="#{cardInfo.cardNoOriginal}" />
+	        </p:column>
+	        
+		</p:dataTable>
+	
+	</h:form>
+	
+</h:body>
+</html>
